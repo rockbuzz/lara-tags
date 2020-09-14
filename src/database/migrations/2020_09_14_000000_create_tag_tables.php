@@ -6,26 +6,31 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateLaraTagsTables extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         Schema::create('tags', function (Blueprint $table) {
-            $table->increments('id');
+            $table->uuid('id')->primary();
+            $table->string('name');
+            $table->string('slug');
+            $table->string('type')->nullable();
+            $table->smallInteger('order_column')->nullable();
+            $table->string('background')->nullable();
+            $table->string('font_color')->nullable();
             $table->timestamps();
+        });
+
+        Schema::create('taggables', function (Blueprint $table) {
+            $table->uuid('tag_id');
+            $table->uuid('taggable_id');
+            $table->string('taggable_type');
+            $table->unique(['tag_id', 'taggable_id', 'taggable_type']);
+            $table->foreign('tag_id')->references('id')->on('tags')->onDelete('cascade');
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
-        Schema::dropIfExists('tags');
+        Schema::drop('taggables');
+        Schema::drop('tags');
     }
 }
