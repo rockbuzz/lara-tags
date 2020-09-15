@@ -6,14 +6,15 @@ use Rockbuzz\LaraTags\Models\Tag;
 
 trait Taggables
 {
-    public function tags(string $type = null)
+    public function tags()
     {
-        $builder = $this->hasMany(Tag::class);
+        return $this->morphToMany(Tag::class, 'taggable');
+    }
 
-        if ($type) {
-            $builder->where('type', $type);
-        }
-
-        return $builder;
+    public function tagsWithType(string $type)
+    {
+        return $this->tags->filter(function (Tag $tag) use ($type) {
+            return $tag->type === $type;
+        });
     }
 }

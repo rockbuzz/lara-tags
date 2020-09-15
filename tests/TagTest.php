@@ -2,9 +2,9 @@
 
 namespace Tests;
 
+use Spatie\Sluggable\HasSlug;
 use Rockbuzz\LaraTags\Models\Tag;
 use Rockbuzz\LaraUuid\Traits\Uuid;
-use Spatie\Sluggable\{HasSlug, SlugOptions};
 
 class TagTest extends TestCase
 {
