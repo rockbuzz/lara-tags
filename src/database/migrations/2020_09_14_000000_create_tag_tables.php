@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateLaraTagsTables extends Migration
+class CreateTagTables extends Migration
 {
     public function up()
     {

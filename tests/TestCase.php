@@ -3,7 +3,7 @@
 namespace Tests;
 
 use Orchestra\Testbench\TestCase as OrchestraTestCase;
-use Rockbuzz\Package\ServiceProvider;
+use Rockbuzz\LaraTags\ServiceProvider;
 
 class TestCase extends OrchestraTestCase
 {
