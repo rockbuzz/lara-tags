@@ -21,7 +21,8 @@
   },
   "require": {
     "php": ">=7.1",
-    "rockbuzz/lara-uuid": "^1.0"
+    "rockbuzz/lara-uuid": "^1.0",
+    "spatie/laravel-schemaless-attributes": "^1.8"
   },
   "require-dev": {
     "phpunit/phpunit": "^7.0",

@@ -13,9 +13,8 @@ class CreateLaraTagsTables extends Migration
             $table->string('name');
             $table->string('slug');
             $table->string('type')->nullable();
+            $table->json('metadata')->nullable();
             $table->smallInteger('order_column')->nullable();
-            $table->string('background')->nullable();
-            $table->string('font_color')->nullable();
             $table->timestamps();
         });
 
