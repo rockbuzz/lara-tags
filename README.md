@@ -16,7 +16,7 @@ $ composer require rockbuzz/lara-tags
 
 ## Configuration
 ```php
-
+$ php artisan vendor:publish --provider="Rockbuzz\LaraTags\ServiceProvider" --tag="config"
 ```
 
 ## License
