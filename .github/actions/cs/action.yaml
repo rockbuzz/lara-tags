@@ -1,5 +1,0 @@
-name: 'phpcs'
-description: 'phpcs'
-runs: 
-   using: 'Docker'
-   image: 'Dockerfile'
