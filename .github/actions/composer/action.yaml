@@ -1,5 +1,5 @@
 name: 'composer-install'
 description: 'composer install'
-run: 
+runs: 
    using: 'Docker'
    image: 'Dockerfile'

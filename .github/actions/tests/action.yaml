@@ -1,5 +1,5 @@
 name: 'tests'
 description: 'tests'
-run: 
+runs: 
    using: 'Docker'
    image: 'Dockerfile'
