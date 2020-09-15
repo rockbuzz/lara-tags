@@ -1,5 +1,5 @@
-name: tests
-description: 'tests'
+name: phpcs
+description: 'phpcs'
 run: 
   using: Docker
   image: Dockerfile
