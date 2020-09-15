@@ -8,7 +8,7 @@ trait Taggables
 {
     public function tags()
     {
-        return $this->morphToMany(Tag::class, 'taggable');
+        return $this->morphToMany(config('tags.models.tag'), 'taggable');
     }
 
     public function tagsWithType(string $type)

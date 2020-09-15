@@ -1,0 +1,5 @@
+name: composer-install
+description: 'composer install'
+run: 
+  using: Docker
+  image: Dockerfile
