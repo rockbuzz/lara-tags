@@ -2,7 +2,7 @@
 
 Tag management
 
-travis markdown
+<p><img src="https://github.com/rockbuzz/lara-tags/workflows/Main/badge.svg"/></p>
 
 ## Requirements
 
