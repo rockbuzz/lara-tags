@@ -1,5 +1,5 @@
-name: phpcs
+name: 'phpcs'
 description: 'phpcs'
 run: 
-  using: Docker
-  image: Dockerfile
+   using: 'Docker'
+   image: 'Dockerfile'
