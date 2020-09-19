@@ -30,4 +30,20 @@ class TaggablesTest extends TestCase
         $this->assertCount(0, $article->tagsWithType('typeC'));
         $this->assertCount(0, $article->tagsWithType('NotExists'));
     }
+
+    public function testHasTag()
+    {
+        $tagA = Tag::create(['name' => 'tagA']);
+        $tagB = Tag::create(['name' => 'tagB']);
+
+        $article = Article::create(['name' => 'any_name']);
+
+        $article->tags()->attach($tagA->id);
+
+        $this->assertTrue($article->hasTag('tagA'));
+        $this->assertTrue($article->hasTag($tagA));
+        $this->assertFalse($article->hasTag('tagB'));
+        $this->assertFalse($article->hasTag($tagB));
+        $this->assertFalse($article->hasTag('NotExists'));
+    }
 }

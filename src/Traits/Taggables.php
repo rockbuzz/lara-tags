@@ -17,4 +17,15 @@ trait Taggables
             return $tag->type === $type;
         });
     }
+
+    public function hasTag($tag)
+    {
+        if (is_a($tag, Tag::class)) {
+            return $this->tags->contains('id', $tag->id);
+        }
+        if ($tag = Tag::whereName($tag)->first()) {
+            return $this->tags->contains('id', $tag->id);
+        }
+        return false;
+    }
 }
