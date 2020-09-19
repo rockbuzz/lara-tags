@@ -2,11 +2,9 @@
 
 namespace Tests;
 
-use Illuminate\Database\Eloquent\Relations\MorphToMany;
-use Spatie\Sluggable\HasSlug;
-use Rockbuzz\LaraTags\Models\Tag;
-use Rockbuzz\LaraUuid\Traits\Uuid;
 use Tests\Stubs\Article;
+use Rockbuzz\LaraTags\Models\Tag;
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
 
 class TaggablesTest extends TestCase
 {
@@ -21,6 +19,7 @@ class TaggablesTest extends TestCase
     {
         $tagA = Tag::create(['name' => 'any_name', 'type' => 'typeA']);
         $tagB = Tag::create(['name' => 'any_name', 'type' => 'typeB']);
+        Tag::create(['name' => 'any_name', 'type' => 'typeC']);
 
         $article = Article::create(['name' => 'any_name']);
 
@@ -29,5 +28,6 @@ class TaggablesTest extends TestCase
         $this->assertCount(1, $article->tagsWithType('typeA'));
         $this->assertCount(1, $article->tagsWithType('typeB'));
         $this->assertCount(0, $article->tagsWithType('typeC'));
+        $this->assertCount(0, $article->tagsWithType('NotExists'));
     }
 }
