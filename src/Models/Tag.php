@@ -44,4 +44,9 @@ class Tag extends Model
     {
         return SchemalessAttributes::scopeWithSchemalessAttributes('metadata');
     }
+
+    public function scopeType($query, string $type)
+    {
+        return $query->whereType($type);
+    }
 }
