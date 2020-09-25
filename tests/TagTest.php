@@ -62,4 +62,16 @@ class TagTest extends TestCase
 
         $this->assertEquals($expected, $this->tag->getCasts());
     }
+
+    public function testScopeType()
+    {
+        $nullTag = Tag::create(['name' => 'any_name', 'type' => null]);
+        $typeATag = Tag::create(['name' => 'any_name', 'type' => 'typeA']);
+
+        $this->assertContains($nullTag->id, Tag::type(null)->get()->pluck('id'));
+        $this->assertNotContains($typeATag->id, Tag::type(null)->get()->pluck('id'));
+        $this->assertNotContains($nullTag->id, Tag::type('not_exists')->get()->pluck('id'));
+        $this->assertContains($typeATag->id, Tag::type('typeA')->get()->pluck('id'));
+        $this->assertNotContains($nullTag->id, Tag::type('typeA')->get()->pluck('id'));
+    }
 }

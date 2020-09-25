@@ -45,7 +45,7 @@ class Tag extends Model
         return SchemalessAttributes::scopeWithSchemalessAttributes('metadata');
     }
 
-    public function scopeType($query, string $type)
+    public function scopeType($query, $type)
     {
         return $query->whereType($type);
     }
