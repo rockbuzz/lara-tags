@@ -6,7 +6,7 @@ Tag management
 
 ## Requirements
 
-PHP: >=7.1
+PHP >=7.2
 
 ## Install
 
@@ -14,9 +14,54 @@ PHP: >=7.1
 $ composer require rockbuzz/lara-tags
 ```
 
-## Configuration
 ```php
-$ php artisan vendor:publish --provider="Rockbuzz\LaraTags\ServiceProvider" --tag="config"
+$ php artisan vendor:publish --provider="Rockbuzz\LaraTags\ServiceProvider" --tag="migrations"
+```
+
+```php
+$ php artisan migrate
+```
+
+Add the `HashTag` trait to the template for which you will have tags
+
+```php
+use Rockbuzz\LaraTags\Traits\Taggable;
+
+class Article extends Model
+{
+    use Taggable;
+}
+```
+
+## Usage
+```php
+use Rockbuzz\LaraTags\Models\Tag;
+
+$tag = Tag::findFromSlug('slug'); //instance or null
+$tag = Tag::findFromSlug('slug', 'type'); //instance or null
+```
+
+```php
+$article = new Article();
+$article->tags(); //MorphToMany
+$article->tags; //Collection
+$article->tagsWithType('type'); //Collection
+$article->hasTag('tag_name'); //boolean
+$article->hasTag($tagInstance); //boolean
+```
+Scopes
+```php
+Article::withAnyTags($arrayTags);
+Article::withAnyTags($arrayTags, 'type');
+```
+or
+```php
+Article::withAnyTags($arrayIdTags);
+Article::withAnyTags($arrayIdTags, 'type');
+```
+```php
+Article::withAnyTags($nameTags);
+Article::withAnyTags($nameTags, 'type');
 ```
 
 ## License
