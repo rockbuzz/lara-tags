@@ -23,7 +23,7 @@ class ServiceProvider extends SupportServiceProvider
 
         $this->publishes([
             __DIR__ . '/config/tags.php' => config_path('tags.php')
-        ], 'config');        
+        ], 'config');
     }
 
     public function register()
