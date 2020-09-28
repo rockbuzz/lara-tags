@@ -49,4 +49,9 @@ class Tag extends Model
     {
         return $query->whereType($type);
     }
+
+    public static function findFromSlug(string $slug, $type = null)
+    {
+        return static::whereSlug($slug)->whereType($type)->first();
+    }
 }

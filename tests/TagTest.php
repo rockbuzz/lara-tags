@@ -74,4 +74,14 @@ class TagTest extends TestCase
         $this->assertContains($typeATag->id, Tag::type('typeA')->get()->pluck('id'));
         $this->assertNotContains($nullTag->id, Tag::type('typeA')->get()->pluck('id'));
     }
+
+    public function testFindFromSlug()
+    {
+        $nullTag = Tag::create(['name' => 'any name', 'type' => null]);
+        $typeATag = Tag::create(['name' => 'any name a', 'type' => 'typeA']);
+
+        $this->assertInstanceOf(Tag::class, Tag::findFromSlug('any-name'));
+        $this->assertNull(Tag::findFromSlug('any-name-a'));
+        $this->assertInstanceOf(Tag::class, Tag::findFromSlug('any-name-a', 'typeA'));
+    }
 }
