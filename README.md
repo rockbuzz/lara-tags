@@ -22,7 +22,7 @@ $ php artisan vendor:publish --provider="Rockbuzz\LaraTags\ServiceProvider" --ta
 $ php artisan migrate
 ```
 
-Add the `HashTag` trait to the template for which you will have tags
+Add the `Taggable` trait to the template for which you will have tags
 
 ```php
 use Rockbuzz\LaraTags\Traits\Taggable;
