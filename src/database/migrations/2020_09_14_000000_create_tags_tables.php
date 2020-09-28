@@ -18,9 +18,11 @@ class CreateTagsTables extends Migration
             $table->timestamps();
         });
 
-        Schema::create('taggables', function (Blueprint $table) {
+        $columnType = config('tags.taggable_reference_uuid') ? 'uuid' : 'unsignedBigInteger';
+
+        Schema::create('taggables', function (Blueprint $table) use ($columnType) {
             $table->uuid('tag_id');
-            $table->uuid('taggable_id');
+            $table->{$columnType}('taggable_id');
             $table->string('taggable_type');
             $table->unique(['tag_id', 'taggable_id', 'taggable_type']);
             $table->foreign('tag_id')->references('id')->on('tags')->onDelete('cascade');
