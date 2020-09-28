@@ -6,7 +6,7 @@ use Tests\Stubs\Article;
 use Rockbuzz\LaraTags\Models\Tag;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 
-class TaggablesTest extends TestCase
+class TaggableTest extends TestCase
 {
     public function testTags()
     {

@@ -6,7 +6,7 @@ use Ramsey\Uuid\Uuid;
 use Rockbuzz\LaraTags\Models\Tag;
 use Illuminate\Database\Eloquent\Builder;
 
-trait Taggables
+trait Taggable
 {
     public function tags()
     {

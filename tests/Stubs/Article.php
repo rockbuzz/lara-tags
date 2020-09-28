@@ -3,12 +3,12 @@
 namespace Tests\Stubs;
 
 use Rockbuzz\LaraUuid\Traits\Uuid;
+use Rockbuzz\LaraTags\Traits\Taggable;
 use Illuminate\Database\Eloquent\Model;
-use Rockbuzz\LaraTags\Traits\Taggables;
 
 class Article extends Model
 {
-    use Uuid, Taggables;
+    use Uuid, Taggable;
 
     public $incrementing = false;
 
