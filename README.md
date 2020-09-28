@@ -59,6 +59,7 @@ or
 Article::withAnyTags($arrayIdTags);
 Article::withAnyTags($arrayIdTags, 'type');
 ```
+or
 ```php
 Article::withAnyTags($nameTags);
 Article::withAnyTags($nameTags, 'type');
