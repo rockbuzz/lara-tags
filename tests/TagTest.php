@@ -5,6 +5,7 @@ namespace Tests;
 use Spatie\Sluggable\HasSlug;
 use Rockbuzz\LaraTags\Models\Tag;
 use Rockbuzz\LaraUuid\Traits\Uuid;
+use Illuminate\Support\Facades\Config;
 use Spatie\SchemalessAttributes\SchemalessAttributesTrait;
 
 class TagTest extends TestCase
@@ -63,6 +64,15 @@ class TagTest extends TestCase
         ];
 
         $this->assertEquals($expected, $this->tag->getCasts());
+    }
+
+    public function testRouteKeyName()
+    {
+        $this->assertEquals('id', $this->tag->getRouteKeyName());
+
+        Config::set('tags.route_key_name', 'slug');
+
+        $this->assertEquals('slug', $this->tag->getRouteKeyName());
     }
 
     public function testScopeType()

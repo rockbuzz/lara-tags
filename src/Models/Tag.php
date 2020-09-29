@@ -29,6 +29,11 @@ class Tag extends Model
         'metadata' => 'array'
     ];
 
+    public function getRouteKeyName()
+    {
+        return config('tags.route_key_name');
+    }
+
     public function getSlugOptions() : SlugOptions
     {
         return SlugOptions::create()
