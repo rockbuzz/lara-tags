@@ -29,6 +29,7 @@ class TaggableTest extends TestCase
         $this->assertCount(1, $article->tagsWithType('typeB'));
         $this->assertCount(0, $article->tagsWithType('typeC'));
         $this->assertCount(0, $article->tagsWithType('NotExists'));
+        $this->assertCount(0, $article->tagsWithType(null));
     }
 
     public function testHasTag()

@@ -13,7 +13,7 @@ trait Taggable
         return $this->morphToMany(config('tags.models.tag'), 'taggable');
     }
 
-    public function tagsWithType(string $type)
+    public function tagsWithType($type)
     {
         return $this->tags->filter(function (Tag $tag) use ($type) {
             return $tag->type === $type;
