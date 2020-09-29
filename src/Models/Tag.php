@@ -6,10 +6,11 @@ use Rockbuzz\LaraUuid\Traits\Uuid;
 use Spatie\Sluggable\{HasSlug, SlugOptions};
 use Illuminate\Database\Eloquent\{Model, Builder};
 use Spatie\SchemalessAttributes\SchemalessAttributes;
+use Spatie\SchemalessAttributes\SchemalessAttributesTrait;
 
 class Tag extends Model
 {
-    use Uuid, HasSlug;
+    use Uuid, HasSlug, SchemalessAttributesTrait;
 
     protected $fillable = [
         'name',

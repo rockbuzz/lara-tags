@@ -5,6 +5,7 @@ namespace Tests;
 use Spatie\Sluggable\HasSlug;
 use Rockbuzz\LaraTags\Models\Tag;
 use Rockbuzz\LaraUuid\Traits\Uuid;
+use Spatie\SchemalessAttributes\SchemalessAttributesTrait;
 
 class TagTest extends TestCase
 {
@@ -21,7 +22,8 @@ class TagTest extends TestCase
     {
         $expected = [
             Uuid::class,
-            HasSlug::class
+            HasSlug::class,
+            SchemalessAttributesTrait::class
         ];
 
         $this->assertEquals(
