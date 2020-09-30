@@ -68,11 +68,11 @@ class TagTest extends TestCase
 
     public function testRouteKeyName()
     {
-        $this->assertEquals('id', $this->tag->getRouteKeyName());
-
-        Config::set('tags.route_key_name', 'slug');
-
         $this->assertEquals('slug', $this->tag->getRouteKeyName());
+
+        Config::set('tags.route_key_name', 'id');
+
+        $this->assertEquals('id', $this->tag->getRouteKeyName());
     }
 
     public function testScopeType()
