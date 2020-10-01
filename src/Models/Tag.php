@@ -29,13 +29,6 @@ class Tag extends Model
         'metadata' => 'array'
     ];
 
-    public function __construct(array $attributes = [])
-    {
-        parent::__construct($attributes);
-
-        $this->setTable(config('tags.tables.tags'));
-    }
-
     public function getRouteKeyName()
     {
         return config('tags.route_key_name');
