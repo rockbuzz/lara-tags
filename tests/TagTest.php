@@ -4,7 +4,6 @@ namespace Tests;
 
 use Spatie\Sluggable\HasSlug;
 use Rockbuzz\LaraTags\Models\Tag;
-use Rockbuzz\LaraUuid\Traits\Uuid;
 use Illuminate\Support\Facades\Config;
 use Spatie\SchemalessAttributes\SchemalessAttributesTrait;
 
@@ -19,10 +18,9 @@ class TagTest extends TestCase
         $this->tag = new Tag();
     }
 
-    public function testIfUsesTraits()
+    public function test_if_uses_taits()
     {
         $expected = [
-            Uuid::class,
             HasSlug::class,
             SchemalessAttributesTrait::class
         ];
@@ -33,17 +31,7 @@ class TagTest extends TestCase
         );
     }
 
-    public function testIncrementing()
-    {
-        $this->assertFalse($this->tag->incrementing);
-    }
-
-    public function testKeyType()
-    {
-        $this->assertEquals('string', $this->tag->getKeyType());
-    }
-
-    public function testFillable()
+    public function test_fillable()
     {
         $expected = [
             'name',
@@ -56,17 +44,17 @@ class TagTest extends TestCase
         $this->assertEquals($expected, $this->tag->getFillable());
     }
 
-    public function testCasts()
+    public function test_casts()
     {
         $expected = [
-            'id' => 'string',
+            'id' => 'int',
             'metadata' => 'array'
         ];
 
         $this->assertEquals($expected, $this->tag->getCasts());
     }
 
-    public function testRouteKeyName()
+    public function test_route_key_name()
     {
         $this->assertEquals('slug', $this->tag->getRouteKeyName());
 
@@ -75,7 +63,7 @@ class TagTest extends TestCase
         $this->assertEquals('id', $this->tag->getRouteKeyName());
     }
 
-    public function testScopeType()
+    public function test_scope_type()
     {
         $nullTag = Tag::create(['name' => 'any_name', 'type' => null]);
         $typeATag = Tag::create(['name' => 'any_name', 'type' => 'typeA']);
@@ -87,7 +75,7 @@ class TagTest extends TestCase
         $this->assertNotContains($nullTag->id, Tag::type('typeA')->get()->pluck('id'));
     }
 
-    public function testFindFromSlug()
+    public function test_find_from_slug()
     {
         $nullTag = Tag::create(['name' => 'any name', 'type' => null]);
         $typeATag = Tag::create(['name' => 'any name a', 'type' => 'typeA']);

@@ -2,7 +2,6 @@
 
 namespace Rockbuzz\LaraTags\Models;
 
-use Rockbuzz\LaraUuid\Traits\Uuid;
 use Spatie\Sluggable\{HasSlug, SlugOptions};
 use Illuminate\Database\Eloquent\{Model, Builder};
 use Spatie\SchemalessAttributes\SchemalessAttributes;
@@ -10,7 +9,7 @@ use Spatie\SchemalessAttributes\SchemalessAttributesTrait;
 
 class Tag extends Model
 {
-    use Uuid, HasSlug, SchemalessAttributesTrait;
+    use HasSlug, SchemalessAttributesTrait;
 
     protected $fillable = [
         'name',
@@ -20,12 +19,7 @@ class Tag extends Model
         'order_column'
     ];
 
-    public $incrementing = false;
-
-    protected $keyType = 'string';
-
     protected $casts = [
-        'id' => 'string',
         'metadata' => 'array'
     ];
 

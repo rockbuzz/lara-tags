@@ -43,6 +43,10 @@ trait Taggable
                 $validatedTags[] = $validTag;
                 continue;
             }
+            if (is_int($tag) and $validTag = Tag::find($tag)) {
+                $validatedTags[] = $validTag;
+                continue;
+            }
             if ($validTag = Tag::whereName($tag)->first()) {
                 $validatedTags[] = $validTag;
             }

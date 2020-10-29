@@ -8,14 +8,14 @@ use Illuminate\Database\Eloquent\Relations\MorphToMany;
 
 class TaggableTest extends TestCase
 {
-    public function testTags()
+    public function test_tags()
     {
         $article = Article::create(['name' => 'any_name']);
 
         $this->assertInstanceOf(MorphToMany::class, $article->tags());
     }
 
-    public function testTagsWithType()
+    public function test_tags_with_type()
     {
         $tagA = Tag::create(['name' => 'any_name', 'type' => 'typeA']);
         $tagB = Tag::create(['name' => 'any_name', 'type' => 'typeB']);
@@ -32,7 +32,7 @@ class TaggableTest extends TestCase
         $this->assertCount(0, $article->tagsWithType(null));
     }
 
-    public function testHasTag()
+    public function test_has_tag()
     {
         $tagA = Tag::create(['name' => 'tagA']);
         $tagB = Tag::create(['name' => 'tagB']);
@@ -48,7 +48,7 @@ class TaggableTest extends TestCase
         $this->assertFalse($article->hasTag('NotExists'));
     }
 
-    public function testWithAnyTags()
+    public function test_ith_any_tags()
     {
         $tagA = Tag::create(['name' => 'tagA']);
         $tagB = Tag::create(['name' => 'tagB']);
@@ -63,7 +63,7 @@ class TaggableTest extends TestCase
         $this->assertNotContains($article->id, $article->withAnyTags(['tagB'])->get()->pluck('id'));
     }
 
-    public function testWithAnyTagsType()
+    public function test_ith_any_tags_type()
     {
         $tagA = Tag::create(['name' => 'tagA', 'type' => 'typeA']);
         $tagB = Tag::create(['name' => 'tagB', 'type' => 'typeB']);
