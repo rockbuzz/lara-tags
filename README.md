@@ -61,8 +61,8 @@ Article::withAnyTags($arrayIdTags, 'type');
 ```
 or
 ```php
-Article::withAnyTags($nameTags);
-Article::withAnyTags($nameTags, 'type');
+Article::withAnyTags($arrayNameTags);
+Article::withAnyTags($arrayNameTags, 'type');
 ```
 
 ## License
