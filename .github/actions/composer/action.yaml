@@ -3,3 +3,5 @@ description: "composer install"
 runs:
   using: "docker"
   image: "Dockerfile"
+with:
+  php_version: 7.2
