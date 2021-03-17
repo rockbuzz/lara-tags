@@ -5,7 +5,6 @@ namespace Tests;
 use Spatie\Sluggable\HasSlug;
 use Rockbuzz\LaraTags\Models\Tag;
 use Illuminate\Support\Facades\Config;
-use Spatie\SchemalessAttributes\SchemalessAttributesTrait;
 
 class TagTest extends TestCase
 {
@@ -21,8 +20,7 @@ class TagTest extends TestCase
     public function test_if_uses_taits()
     {
         $expected = [
-            HasSlug::class,
-            SchemalessAttributesTrait::class
+            HasSlug::class
         ];
 
         $this->assertEquals(

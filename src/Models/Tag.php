@@ -4,12 +4,10 @@ namespace Rockbuzz\LaraTags\Models;
 
 use Spatie\Sluggable\{HasSlug, SlugOptions};
 use Illuminate\Database\Eloquent\{Model, Builder};
-use Spatie\SchemalessAttributes\SchemalessAttributes;
-use Spatie\SchemalessAttributes\SchemalessAttributesTrait;
 
 class Tag extends Model
 {
-    use HasSlug, SchemalessAttributesTrait;
+    use HasSlug;
 
     protected $fillable = [
         'name',
@@ -33,16 +31,6 @@ class Tag extends Model
         return SlugOptions::create()
             ->generateSlugsFrom('name')
             ->saveSlugsTo('slug');
-    }
-
-    public function getMetadataAttribute(): SchemalessAttributes
-    {
-        return SchemalessAttributes::createForModel($this, 'metadata');
-    }
-
-    public function scopeWithMetadata(): Builder
-    {
-        return SchemalessAttributes::scopeWithSchemalessAttributes('metadata');
     }
 
     public function scopeType($query, $type)
