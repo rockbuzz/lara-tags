@@ -2,9 +2,10 @@
 
 namespace Rockbuzz\LaraTags\Traits;
 
-use Ramsey\Uuid\Uuid;
+use Exception;
 use Rockbuzz\LaraTags\Models\Tag;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 trait Taggable
 {
@@ -13,7 +14,7 @@ trait Taggable
         return $this->morphToMany(config('tags.models.tag'), 'taggable');
     }
 
-    public function tagsWithType($type)
+    public function tagsWithType(string $type)
     {
         return $this->tags->filter(function (Tag $tag) use ($type) {
             return $tag->type === $type;
@@ -22,35 +23,24 @@ trait Taggable
 
     public function hasTag($tag)
     {
-        if (is_a($tag, Tag::class)) {
-            return $this->tags->contains('id', $tag->id);
-        }
-        if ($tag = Tag::whereName($tag)->first()) {
-            return $this->tags->contains('id', $tag->id);
+        try {
+            return $this->tags->contains('id', $this->resolveTag($tag)->id);
+        } catch (Exception $e) {
+            error_log($e->getMessage());
         }
         return false;
     }
 
     public function scopeWithAnyTags(Builder $query, array $tags, string $type = null): Builder
     {
-        $validatedTags = [];
-        foreach ($tags as $tag) {
-            if (is_a($tag, Tag::class)) {
-                $validatedTags[] = $tag;
-                continue;
+        $validatedTags = collect($tags)->reduce(function ($validatedTags, $tag) {
+            try {
+                $validatedTags[] = $this->resolveTag($tag);
+            } catch (Exception $e) {
+                error_log($e->getMessage());
             }
-            if (Uuid::isValid($tag) and $validTag = Tag::find($tag)) {
-                $validatedTags[] = $validTag;
-                continue;
-            }
-            if (is_int($tag) and $validTag = Tag::find($tag)) {
-                $validatedTags[] = $validTag;
-                continue;
-            }
-            if ($validTag = Tag::whereName($tag)->first()) {
-                $validatedTags[] = $validTag;
-            }
-        }
+            return $validatedTags;
+        }, []);
 
         return $query->whereHas('tags', function (Builder $query) use ($validatedTags, $type) {
             $tagIds = collect($validatedTags)->pluck('id');
@@ -61,5 +51,25 @@ trait Taggable
                 $query->where('tags.type', $type);
             }
         });
+    }
+
+    /**
+     * Undocumented function
+     *
+     * @param Tag|string|int $tag model, name or id
+     * @return Tag
+     * @throws ModelNotFoundException
+     */
+    private function resolveTag($tag): Tag
+    {
+        if (is_a($tag, Tag::class)) {
+            return $tag;
+        }
+
+        if (is_int($tag)) {
+            return  Tag::findOrFail($tag);
+        }
+
+        return Tag::whereName($tag)->firstOrFail();
     }
 }

@@ -29,7 +29,7 @@ class TaggableTest extends TestCase
         $this->assertCount(1, $article->tagsWithType('typeB'));
         $this->assertCount(0, $article->tagsWithType('typeC'));
         $this->assertCount(0, $article->tagsWithType('NotExists'));
-        $this->assertCount(0, $article->tagsWithType(null));
+        $this->assertCount(0, $article->tagsWithType(''));
     }
 
     public function test_has_tag()
@@ -48,7 +48,7 @@ class TaggableTest extends TestCase
         $this->assertFalse($article->hasTag('NotExists'));
     }
 
-    public function test_ith_any_tags()
+    public function test_with_any_tags()
     {
         $tagA = Tag::create(['name' => 'tagA']);
         $tagB = Tag::create(['name' => 'tagB']);
@@ -63,7 +63,7 @@ class TaggableTest extends TestCase
         $this->assertNotContains($article->id, $article->withAnyTags(['tagB'])->get()->pluck('id'));
     }
 
-    public function test_ith_any_tags_type()
+    public function test_with_any_tags_type()
     {
         $tagA = Tag::create(['name' => 'tagA', 'type' => 'typeA']);
         $tagB = Tag::create(['name' => 'tagB', 'type' => 'typeB']);
