@@ -54,8 +54,6 @@ trait Taggable
     }
 
     /**
-     * Undocumented function
-     *
      * @param Tag|string|int $tag model, name or id
      * @return Tag
      * @throws ModelNotFoundException

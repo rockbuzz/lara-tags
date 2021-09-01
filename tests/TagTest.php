@@ -75,8 +75,8 @@ class TagTest extends TestCase
 
     public function test_find_from_slug()
     {
-        $nullTag = Tag::create(['name' => 'any name', 'type' => null]);
-        $typeATag = Tag::create(['name' => 'any name a', 'type' => 'typeA']);
+        Tag::create(['name' => 'any name', 'type' => null]);
+        Tag::create(['name' => 'any name a', 'type' => 'typeA']);
 
         $this->assertInstanceOf(Tag::class, Tag::findFromSlug('any-name'));
         $this->assertNull(Tag::findFromSlug('any-name-a'));

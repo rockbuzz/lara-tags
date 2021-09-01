@@ -2,7 +2,7 @@
 
 namespace Tests;
 
-use Tests\Stubs\Article;
+use Tests\Models\Article;
 use Rockbuzz\LaraTags\Models\Tag;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 
@@ -51,7 +51,7 @@ class TaggableTest extends TestCase
     public function test_with_any_tags()
     {
         $tagA = Tag::create(['name' => 'tagA']);
-        $tagB = Tag::create(['name' => 'tagB']);
+        Tag::create(['name' => 'tagB']);
 
         $article = Article::create(['name' => 'any_name']);
 
@@ -66,7 +66,7 @@ class TaggableTest extends TestCase
     public function test_with_any_tags_type()
     {
         $tagA = Tag::create(['name' => 'tagA', 'type' => 'typeA']);
-        $tagB = Tag::create(['name' => 'tagB', 'type' => 'typeB']);
+        Tag::create(['name' => 'tagB', 'type' => 'typeB']);
 
         $article = Article::create(['name' => 'any_name']);
 

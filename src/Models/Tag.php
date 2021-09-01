@@ -2,8 +2,8 @@
 
 namespace Rockbuzz\LaraTags\Models;
 
+use Illuminate\Database\Eloquent\Model;
 use Spatie\Sluggable\{HasSlug, SlugOptions};
-use Illuminate\Database\Eloquent\{Model, Builder};
 
 class Tag extends Model
 {

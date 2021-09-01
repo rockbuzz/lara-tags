@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Stubs;
+namespace Tests\Models;
 
 use Rockbuzz\LaraTags\Traits\Taggable;
 use Illuminate\Database\Eloquent\Model;
