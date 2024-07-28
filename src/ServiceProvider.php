@@ -7,7 +7,7 @@ use Illuminate\Support\ServiceProvider as SupportServiceProvider;
 
 class ServiceProvider extends SupportServiceProvider
 {
-    public function boot(Filesystem $filesystem)
+    public function boot(Filesystem $filesystem): void
     {
         $projectPath = database_path('migrations') . '/';
         $localPath = __DIR__ . '/../database/migrations/';
@@ -26,7 +26,7 @@ class ServiceProvider extends SupportServiceProvider
         ], 'config');
     }
 
-    public function register()
+    public function register(): void
     {
         $this->mergeConfigFrom(__DIR__ . '/../config/tags.php', 'tags');
     }

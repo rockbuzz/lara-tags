@@ -2,72 +2,47 @@
 
 namespace Rockbuzz\LaraTags\Traits;
 
-use Exception;
 use Rockbuzz\LaraTags\Models\Tag;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Database\Eloquent\{Builder, Collection};
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
 
 trait Taggable
 {
-    public function tags()
+    public function tags(): MorphToMany
     {
         return $this->morphToMany(config('tags.models.tag'), 'taggable');
     }
 
-    public function tagsWithType(string $type)
+    public function tagsWithType(string $type): Collection
     {
-        return $this->tags->filter(function (Tag $tag) use ($type) {
-            return $tag->type === $type;
-        });
+        return $this->tags->filter(static fn(Tag $tag) => $tag->type === $type)->values();
     }
 
-    public function hasTag($tag)
+    public function hasTag($tag): bool
     {
-        try {
-            return $this->tags->contains('id', $this->resolveTag($tag)->id);
-        } catch (Exception $e) {
-            error_log($e->getMessage());
-        }
-        return false;
+        return $this->tags->contains('id', $this->resolveTagId($tag));
     }
 
-    public function scopeWithAnyTags(Builder $query, array $tags, string $type = null): Builder
+    public function scopeWithAnyTags(Builder $builder, array $tags, string $type = null): Builder
     {
-        $validatedTags = collect($tags)->reduce(function ($validatedTags, $tag) {
-            try {
-                $validatedTags[] = $this->resolveTag($tag);
-            } catch (Exception $e) {
-                error_log($e->getMessage());
-            }
-            return $validatedTags;
-        }, []);
+        $validatedTagsIds = collect($tags)->filter(fn(Tag|int|string $tag) => $this->resolveTagId($tag))->values();
 
-        return $query->whereHas('tags', function (Builder $query) use ($validatedTags, $type) {
-            $tagIds = collect($validatedTags)->pluck('id');
-
-            $query->whereIn('tags.id', $tagIds);
-
-            if ($type) {
-                $query->where('tags.type', $type);
-            }
-        });
+        return $builder->whereHas('tags', static fn(Builder $builder) => $builder
+            ->whereIn('tags.id', $validatedTagsIds)
+            ->when($type, static fn(Builder $builder, string $type) => $builder
+                ->where('tags.type', $type)));
     }
 
-    /**
-     * @param Tag|string|int $tag model, name or id
-     * @return Tag
-     * @throws ModelNotFoundException
-     */
-    private function resolveTag($tag): Tag
+    private function resolveTagId(Tag|int|string $tag): ?int
     {
         if (is_a($tag, Tag::class)) {
-            return $tag;
+            return $tag->id;
         }
 
         if (is_int($tag)) {
-            return  Tag::findOrFail($tag);
+            return $tag;
         }
 
-        return Tag::whereName($tag)->firstOrFail();
+        return Tag::where('name', $tag)->first()?->id;
     }
 }

@@ -1,9 +1,9 @@
 <?php
 
-namespace Tests;
+namespace Rockbuzz\LaraTags\Tests;
 
-use Orchestra\Testbench\TestCase as OrchestraTestCase;
 use Rockbuzz\LaraTags\ServiceProvider;
+use Orchestra\Testbench\TestCase as OrchestraTestCase;
 
 class TestCase extends OrchestraTestCase
 {
@@ -25,13 +25,13 @@ class TestCase extends OrchestraTestCase
     }
 
 
-    protected function getEnvironmentSetUp($app)
+    protected function getEnvironmentSetUp($app): void
     {
         $app['config']->set('database.default', 'testing');
     }
 
 
-    protected function getPackageProviders($app)
+    protected function getPackageProviders($app): array
     {
         return [ServiceProvider::class];
     }

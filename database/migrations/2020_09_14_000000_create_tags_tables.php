@@ -6,9 +6,9 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateTagsTables extends Migration
 {
-    public function up()
+    public function up(): void
     {
-        Schema::create('tags', function (Blueprint $table) {
+        Schema::create('tags', static function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('slug');
@@ -18,7 +18,7 @@ class CreateTagsTables extends Migration
             $table->timestamps();
         });
 
-        Schema::create('taggables', function (Blueprint $table) {
+        Schema::create('taggables', static function (Blueprint $table) {
             $table->unsignedBigInteger('tag_id');
             $table->morphs('taggable');
             $table->unique(['tag_id', 'taggable_id', 'taggable_type']);
@@ -26,7 +26,7 @@ class CreateTagsTables extends Migration
         });
     }
 
-    public function down()
+    public function down(): void
     {
         Schema::drop('taggables');
         Schema::drop('tags');

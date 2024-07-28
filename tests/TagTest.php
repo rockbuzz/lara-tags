@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests;
+namespace Rockbuzz\LaraTags\Tests;
 
 use Spatie\Sluggable\HasSlug;
 use Rockbuzz\LaraTags\Models\Tag;
@@ -17,7 +17,7 @@ class TagTest extends TestCase
         $this->tag = new Tag();
     }
 
-    public function test_if_uses_taits()
+    public function test_if_uses_taits(): void
     {
         $expected = [
             HasSlug::class
@@ -29,7 +29,7 @@ class TagTest extends TestCase
         );
     }
 
-    public function test_fillable()
+    public function test_fillable(): void
     {
         $expected = [
             'name',
@@ -42,7 +42,7 @@ class TagTest extends TestCase
         $this->assertEquals($expected, $this->tag->getFillable());
     }
 
-    public function test_casts()
+    public function test_casts(): void
     {
         $expected = [
             'id' => 'int',
@@ -52,7 +52,7 @@ class TagTest extends TestCase
         $this->assertEquals($expected, $this->tag->getCasts());
     }
 
-    public function test_route_key_name()
+    public function test_route_key_name(): void
     {
         $this->assertEquals('slug', $this->tag->getRouteKeyName());
 
@@ -61,7 +61,7 @@ class TagTest extends TestCase
         $this->assertEquals('id', $this->tag->getRouteKeyName());
     }
 
-    public function test_scope_type()
+    public function test_scope_type(): void
     {
         $nullTag = Tag::create(['name' => 'any_name', 'type' => null]);
         $typeATag = Tag::create(['name' => 'any_name', 'type' => 'typeA']);
@@ -73,7 +73,7 @@ class TagTest extends TestCase
         $this->assertNotContains($nullTag->id, Tag::type('typeA')->get()->pluck('id'));
     }
 
-    public function test_find_from_slug()
+    public function test_find_from_slug(): void
     {
         Tag::create(['name' => 'any name', 'type' => null]);
         Tag::create(['name' => 'any name a', 'type' => 'typeA']);

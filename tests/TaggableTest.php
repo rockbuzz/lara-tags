@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests;
+namespace Rockbuzz\LaraTags\Tests;
 
 use Tests\Models\Article;
 use Rockbuzz\LaraTags\Models\Tag;
@@ -8,14 +8,14 @@ use Illuminate\Database\Eloquent\Relations\MorphToMany;
 
 class TaggableTest extends TestCase
 {
-    public function test_tags()
+    public function test_tags(): void
     {
         $article = Article::create(['name' => 'any_name']);
 
         $this->assertInstanceOf(MorphToMany::class, $article->tags());
     }
 
-    public function test_tags_with_type()
+    public function test_tags_with_type(): void
     {
         $tagA = Tag::create(['name' => 'any_name', 'type' => 'typeA']);
         $tagB = Tag::create(['name' => 'any_name', 'type' => 'typeB']);
@@ -32,7 +32,7 @@ class TaggableTest extends TestCase
         $this->assertCount(0, $article->tagsWithType(''));
     }
 
-    public function test_has_tag()
+    public function test_has_tag(): void
     {
         $tagA = Tag::create(['name' => 'tagA']);
         $tagB = Tag::create(['name' => 'tagB']);
@@ -48,7 +48,7 @@ class TaggableTest extends TestCase
         $this->assertFalse($article->hasTag('NotExists'));
     }
 
-    public function test_with_any_tags()
+    public function test_with_any_tags(): void
     {
         $tagA = Tag::create(['name' => 'tagA']);
         Tag::create(['name' => 'tagB']);
@@ -63,7 +63,7 @@ class TaggableTest extends TestCase
         $this->assertNotContains($article->id, $article->withAnyTags(['tagB'])->get()->pluck('id'));
     }
 
-    public function test_with_any_tags_type()
+    public function test_with_any_tags_type(): void
     {
         $tagA = Tag::create(['name' => 'tagA', 'type' => 'typeA']);
         Tag::create(['name' => 'tagB', 'type' => 'typeB']);

@@ -2,8 +2,8 @@
 
 namespace Rockbuzz\LaraTags\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Spatie\Sluggable\{HasSlug, SlugOptions};
+use Illuminate\Database\Eloquent\{Builder, Model};
 
 class Tag extends Model
 {
@@ -21,25 +21,25 @@ class Tag extends Model
         'metadata' => 'array'
     ];
 
-    public function getRouteKeyName()
+    public function getRouteKeyName(): string
     {
         return config('tags.route_key_name');
     }
 
-    public function getSlugOptions() : SlugOptions
+    public function getSlugOptions(): SlugOptions
     {
         return SlugOptions::create()
             ->generateSlugsFrom('name')
             ->saveSlugsTo('slug');
     }
 
-    public function scopeType($query, $type)
+    public function scopeType(Builder $builder, $type): Builder
     {
-        return $query->whereType($type);
+        return $builder->where('type', $type);
     }
 
-    public static function findFromSlug(string $slug, $type = null)
+    public static function findFromSlug(string $slug, string $type = null): ?static
     {
-        return static::whereSlug($slug)->whereType($type)->first();
+        return static::where('slug', $slug)->where('type', $type)->first();
     }
 }

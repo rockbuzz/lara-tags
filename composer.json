@@ -1,5 +1,6 @@
 {
   "name": "rockbuzz/lara-tags",
+  "version": "9.0.0",
   "description": "Tag management",
   "keywords": ["laravel", "tags", "categories"],
   "license": "MIT",
@@ -16,7 +17,7 @@
   },
   "autoload-dev": {
     "psr-4": {
-      "Tests\\": "tests/"
+      "Rockbuzz\\LaraTags\\Tests\\": "tests/"
     }
   },
   "require": {
